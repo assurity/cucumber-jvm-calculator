@@ -1,0 +1,31 @@
+buildscript {
+	repositories {
+	  jcenter()
+	}
+	dependencies {
+	  classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.7"
+	}
+  }
+
+apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: 'java'
+
+// Easier syntax for Gradle 2.1 or later  
+//plugins {
+//	id "com.github.samueltbrown.cucumber" version "0.7"
+//}
+
+sourceCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+	cucumberVersion = '1.1.7'
+}
+
+dependencies {
+    testCompile "info.cukes:cucumber-junit:${cucumberVersion}",
+	            "info.cukes:cucumber-java:${cucumberVersion}"
+}
