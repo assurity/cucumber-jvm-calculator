@@ -29,3 +29,7 @@ dependencies {
     testCompile "info.cukes:cucumber-junit:${cucumberVersion}",
 	            "info.cukes:cucumber-java:${cucumberVersion}"
 }
+
+cucumber {
+    formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml']
+}
