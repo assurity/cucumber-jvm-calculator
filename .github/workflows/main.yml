@@ -20,7 +20,9 @@ jobs:
         continue-on-error: true
         
       - name: rename to index.html
-        run: cp build/cucumber-reports/cucumber-html-reports/overview-features.html build/cucumber-reports/cucumber-html-reports/index.html 
+        run: if [-e build/cucumber-reports/cucumber-html-reports/overview-features.html] 
+               then cp build/cucumber-reports/cucumber-html-reports/overview-features.html build/cucumber-reports/cucumber-html-reports/index.html 
+             fi 
 
       - name: Get github branch
         run: echo ::set-output name=branch_name::${GITHUB_REF#refs/*/}
