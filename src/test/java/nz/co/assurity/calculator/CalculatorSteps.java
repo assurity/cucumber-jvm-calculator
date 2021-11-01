@@ -10,12 +10,12 @@ public class CalculatorSteps {
 	private Calculator calculator = new Calculator();
 	private int result;
 
-	@When("^I calculate (\\d+) \\+ (\\d+)$")
-	public void i_calculate(int operand1, int operand2) {
+	@When("I calculate {int} + {int}")
+	public void i_add(int operand1, int operand2) {
 	    result = calculator.add(operand1, operand2);
 	}
 
-	@Then("^the answer is (\\d+)$")
+	@Then("the answer is {int}")
 	public void the_answer_is(int expected) {
 		assertThat(result, equalTo(expected));
 	}
