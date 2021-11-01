@@ -1,35 +1,31 @@
-buildscript {
-	repositories {
-	  jcenter()
-	}
-	dependencies {
-	  classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.7"
-	}
-  }
+plugins {
+	id 'java'
+}
 
-apply plugin: "com.github.samueltbrown.cucumber"
-apply plugin: 'java'
-
-// Easier syntax for Gradle 2.1 or later  
-//plugins {
-//	id "com.github.samueltbrown.cucumber" version "0.7"
-//}
-
-sourceCompatibility = 1.6
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:7.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
 
 repositories {
     mavenCentral()
 }
 
-ext {
-	cucumberVersion = '1.1.7'
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
-dependencies {
-    testCompile "info.cukes:cucumber-junit:${cucumberVersion}",
-	            "info.cukes:cucumber-java:${cucumberVersion}"
-}
-
-cucumber {
-    formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml']
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', '', 'src/test/resources']
+        }
+    }
 }
