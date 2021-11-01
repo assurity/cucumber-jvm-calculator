@@ -19,4 +19,9 @@ public class CalculatorSteps {
 	public void the_answer_is(int expected) {
 		assertThat(result, equalTo(expected));
 	}
+
+	@When("I calculate {int} \\/ {int}")
+	public void iCalculate(int operand1, int operand2) {
+		result = calculator.divide(operand1, operand2);
+	}
 }
