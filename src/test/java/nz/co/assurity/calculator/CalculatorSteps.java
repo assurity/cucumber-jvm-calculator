@@ -15,6 +15,11 @@ public class CalculatorSteps {
 	    result = calculator.add(operand1, operand2);
 	}
 
+	@When("I calculate {int} / {int}")
+	public void i_divide(Integer operand1, Integer operand2) {
+		result = calculator.divide(operand1, operand2);
+	}
+
 	@Then("the answer is {int}")
 	public void the_answer_is(int expected) {
 		assertThat(result, equalTo(expected));
